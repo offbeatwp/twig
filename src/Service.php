@@ -2,7 +2,6 @@
 namespace OffbeatWP\Twig;
 
 use OffbeatWP\Services\AbstractService;
-use OffbeatWP\Tools\Twig\TwigView;
 use OffbeatWP\Contracts\View;
 
 class Service extends AbstractService {

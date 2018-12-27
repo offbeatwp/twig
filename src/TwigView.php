@@ -1,9 +1,6 @@
 <?php
-
 namespace OffbeatWP\Twig;
 
-use OffbeatWP\Twig\Extensions\OffbeatWpExtension;
-use OffbeatWP\Twig\Extensions\WordpressExtension;
 use OffbeatWP\Contracts\View;
 
 class TwigView implements View
@@ -47,8 +44,8 @@ class TwigView implements View
             $twig->addGlobal($globalNamespace, $globalValue);
         }
 
-        $twig->addExtension(new OffbeatWpExtension());
-        $twig->addExtension(new WordpressExtension());
+        $twig->addExtension(new Extensions\OffbeatWpExtension());
+        $twig->addExtension(new Extensions\WordpressExtension());
         
         if (defined('WP_DEBUG') && WP_DEBUG === true) {
             $twig->addExtension(new \Twig_Extension_Debug());
