@@ -1,0 +1,18 @@
+{
+    "name": "offbeatwp/twig",
+    "type": "offbeatwp-service",
+    "authors": [
+        {
+            "name": "Chris Schrijver",
+            "email": "chris@raow.nl"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "OffbeatWP\\Twig\\": "src"
+        }
+    },
+    "require": {
+        "twig/twig": "^2.6"
+    }
+}
