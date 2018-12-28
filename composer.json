@@ -1,5 +1,7 @@
 {
     "name": "offbeatwp/twig",
+    "description": "Use Twig as template engine for OffbeatWP",
+    "license": "MIT",
     "type": "offbeatwp-service",
     "authors": [
         {
