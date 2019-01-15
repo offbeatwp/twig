@@ -3,6 +3,7 @@ namespace OffbeatWP\Twig\Extensions;
 
 use Twig_Extension;
 use Twig_Function;
+use OffbeatWP\Contracts\SiteSettings;
 
 class OffbeatWpExtension extends Twig_Extension
 {
@@ -12,6 +13,7 @@ class OffbeatWpExtension extends Twig_Extension
             new Twig_Function('config', array($this, 'getConfig')),
             new Twig_Function('assetUrl', array($this, 'getAssetUrl')),
             new Twig_Function('component', array($this, 'getComponent')),
+            new Twig_Function('setting', array($this, 'getSetting')),
         );
     }
 
@@ -28,5 +30,10 @@ class OffbeatWpExtension extends Twig_Extension
     public function getComponent($name, $args = [])
     {
         echo container('components')->render($name, $args);
+    }
+
+    public function getSetting($key)
+    {
+        return offbeat(SiteSettings::class)->get($key);
     }
 }
