@@ -17,6 +17,10 @@ class TwigView implements View
     {
         $twig = $this->getTwig();
 
+        if (!is_string($template)) {
+            return;
+        }
+
         $renderResult = $twig->render($template . '.twig', $data);
 
         return $renderResult;
