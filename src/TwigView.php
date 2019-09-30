@@ -82,4 +82,9 @@ class TwigView implements View
     {
         return $this->templatePaths;
     }
+
+    public function createTemplate($templateCode)
+    {
+        return $this->getTwig()->createTemplate($templateCode);
+    }
 }
