@@ -10,7 +10,13 @@ class TwigView implements View
     protected $templatePaths = [];
 
     public function __construct () {
-        $this->addTemplatePath(get_template_directory() . '/resources/views/');
+        if (is_dir(get_template_directory() . '/resources/views/')) {
+            $this->addTemplatePath(get_template_directory() . '/resources/views/');
+        }
+
+        if (is_dir(get_template_directory() . '/views/')) {
+            $this->addTemplatePath(get_template_directory() . '/views/');
+        }
     }
 
     public function render($template, $data = [])
