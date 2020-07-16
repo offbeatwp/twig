@@ -34,7 +34,7 @@ class TwigView implements View
 
     public function getTwig()
     {
-        $loader = new \Twig_Loader_Filesystem(self::getTemplatePaths());
+        $loader = new \Twig\Loader\FilesystemLoader($this->getTemplatePaths());
 
         $settings = [];
 
@@ -46,7 +46,7 @@ class TwigView implements View
             $settings['debug'] = true;
         }
 
-        $twig = new \Twig_Environment($loader, $settings);
+        $twig = new \Twig\Environment($loader, $settings);
 
         $twig->addGlobal('wp', offbeat()->container->make(\OffbeatWP\Views\Wordpress::class));
 
@@ -58,7 +58,7 @@ class TwigView implements View
         $twig->addExtension(new Extensions\WordpressExtension());
         
         if (defined('WP_DEBUG') && WP_DEBUG === true) {
-            $twig->addExtension(new \Twig_Extension_Debug());
+            $twig->addExtension(new \Twig\Extension\DebugExtension());
         }
 
         return $twig;
