@@ -6,7 +6,6 @@ use OffbeatWP\Contracts\View;
 class TwigView implements View
 {
     protected $viewGlobals = [];
-
     protected $templatePaths = [];
 
     public function __construct () {
@@ -27,9 +26,7 @@ class TwigView implements View
             return;
         }
 
-        $renderResult = $twig->render($template . '.twig', $data);
-
-        return $renderResult;
+        return $twig->render($template . '.twig', $data);
     }
 
     public function getTwig()
@@ -56,7 +53,7 @@ class TwigView implements View
 
         $twig->addExtension(new Extensions\OffbeatWpExtension());
         $twig->addExtension(new Extensions\WordpressExtension());
-        
+
         if (defined('WP_DEBUG') && WP_DEBUG === true) {
             $twig->addExtension(new \Twig\Extension\DebugExtension());
         }
