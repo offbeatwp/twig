@@ -8,9 +8,9 @@ class WordpressExtension extends Twig_Extension
 {
     public function getFunctions()
     {
-        return array(
-            new Twig_Function('__', array($this, '__')),
-        );
+        return [
+            new Twig_Function('__', [$this, '__']),
+        ];
     }
 
     public function __($string, $textdomain)
