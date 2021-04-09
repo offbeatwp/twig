@@ -9,12 +9,12 @@ class OffbeatWpExtension extends Twig_Extension
 {
     public function getFunctions()
     {
-        return array(
-            new Twig_Function('config', array($this, 'getConfig')),
-            new Twig_Function('assetUrl', array($this, 'getAssetUrl')),
-            new Twig_Function('component', array($this, 'getComponent')),
-            new Twig_Function('setting', array($this, 'getSetting')),
-        );
+        return [
+            new Twig_Function('config', [$this, 'getConfig']),
+            new Twig_Function('assetUrl', [$this, 'getAssetUrl']),
+            new Twig_Function('component', [$this, 'getComponent']),
+            new Twig_Function('setting', [$this, 'getSetting']),
+        ];
     }
 
     public function getConfig($key)

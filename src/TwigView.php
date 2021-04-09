@@ -1,7 +1,16 @@
 <?php
 namespace OffbeatWP\Twig;
 
+use App\Services\Twig\Filters\Component;
 use OffbeatWP\Contracts\View;
+use OffbeatWP\Twig\Extensions\OffbeatWpExtension;
+use OffbeatWP\Twig\Extensions\WordpressExtension;
+use OffbeatWP\Views\Wordpress;
+use Twig\Environment;
+use Twig\Extension\DebugExtension;
+use Twig\Loader\FilesystemLoader;
+use Twig\Markup;
+use Twig\TwigFilter;
 
 class TwigView implements View
 {
@@ -34,7 +43,7 @@ class TwigView implements View
 
     public function getTwig()
     {
-        $loader = new \Twig\Loader\FilesystemLoader($this->getTemplatePaths());
+        $loader = new FilesystemLoader($this->getTemplatePaths());
 
         $settings = [];
 
@@ -46,19 +55,26 @@ class TwigView implements View
             $settings['debug'] = true;
         }
 
-        $twig = new \Twig\Environment($loader, $settings);
+        $twig = new Environment($loader, $settings);
 
-        $twig->addGlobal('wp', offbeat()->container->make(\OffbeatWP\Views\Wordpress::class));
+        $twig->addGlobal('wp', offbeat()->container->make(Wordpress::class));
 
         if (!empty($this->viewGlobals)) foreach ($this->viewGlobals as $globalNamespace => $globalValue) {
             $twig->addGlobal($globalNamespace, $globalValue);
         }
 
-        $twig->addExtension(new Extensions\OffbeatWpExtension());
-        $twig->addExtension(new Extensions\WordpressExtension());
+        $twig->addFilter(new TwigFilter('component', function (Markup $content, string $name, array $args = []) {
+            $componentToWrap = container('components')->render($name, $args);
+            $contentToEmbed = $content->jsonSerialize();
+
+            return preg_replace('#<innerblocks(\s*[^>]*)>#i', $contentToEmbed, $componentToWrap);
+        }, ['is_safe' => ['html']]));
+
+        $twig->addExtension(new OffbeatWpExtension());
+        $twig->addExtension(new WordpressExtension());
         
         if (defined('WP_DEBUG') && WP_DEBUG === true) {
-            $twig->addExtension(new \Twig\Extension\DebugExtension());
+            $twig->addExtension(new DebugExtension());
         }
 
         return $twig;
