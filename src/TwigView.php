@@ -2,6 +2,7 @@
 namespace OffbeatWP\Twig;
 
 use App\Services\Twig\Filters\Component;
+use Exception;
 use OffbeatWP\Contracts\View;
 use OffbeatWP\Twig\Extensions\OffbeatWpExtension;
 use OffbeatWP\Twig\Extensions\WordpressExtension;
@@ -28,20 +29,27 @@ class TwigView implements View
         }
     }
 
+    /**
+     * @param string $template
+     * @param array $data
+     * @return string|null
+     */
     public function render($template, $data = [])
     {
         $twig = $this->getTwig();
 
         if (!is_string($template)) {
-            return;
+            return null;
         }
 
-        $renderResult = $twig->render($template . '.twig', $data);
-
-        return $renderResult;
+        try {
+            return $twig->render($template . '.twig', $data);
+        } catch (Exception $err) {
+            return "Error in <b>{$err->getFile()}</b> on line <b>{$err->getLine()}:</b> {$err->getMessage()}";
+        }
     }
 
-    public function getTwig()
+    public function getTwig(): Environment
     {
         $loader = new FilesystemLoader($this->getTemplatePaths());
 
@@ -72,7 +80,7 @@ class TwigView implements View
 
         $twig->addExtension(new OffbeatWpExtension());
         $twig->addExtension(new WordpressExtension());
-        
+
         if (defined('WP_DEBUG') && WP_DEBUG === true) {
             $twig->addExtension(new DebugExtension());
         }
@@ -80,7 +88,7 @@ class TwigView implements View
         return $twig;
     }
 
-    public function cacheDir()
+    public function cacheDir(): string
     {
         $cacheDirPath = WP_CONTENT_DIR . '/cache/twig';
 
@@ -100,7 +108,7 @@ class TwigView implements View
         array_unshift($this->templatePaths, $path);
     }
 
-    public function getTemplatePaths()
+    public function getTemplatePaths(): array
     {
         return $this->templatePaths;
     }
