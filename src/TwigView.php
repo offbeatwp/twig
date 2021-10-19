@@ -82,7 +82,7 @@ class TwigView implements View
 
     public function cacheDir()
     {
-        $cacheDirPath = WP_OFFBEAT_TWIG_CACHE_DIR ?? WP_CONTENT_DIR . '/cache/twig';
+        $cacheDirPath = defined('WP_OFFBEAT_TWIG_CACHE_DIR') ? WP_OFFBEAT_TWIG_CACHE_DIR : WP_CONTENT_DIR . '/cache/twig';
 
         if (!is_dir($cacheDirPath)) {
             mkdir($cacheDirPath);
