@@ -27,7 +27,7 @@ class OffbeatWpExtension extends Twig_Extension
         return assetUrl($file);
     }
 
-    public function getComponent($name, $args = [])
+    public function getComponent($name, $args = []): void
     {
         echo container('components')->render($name, $args);
     }

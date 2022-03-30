@@ -1,12 +1,12 @@
 <?php
 namespace OffbeatWP\Twig;
 
-use App\Services\Twig\Filters\Component;
 use Exception;
 use OffbeatWP\Contracts\View;
 use OffbeatWP\Twig\Extensions\OffbeatWpExtension;
 use OffbeatWP\Twig\Extensions\WordpressExtension;
 use OffbeatWP\Views\Wordpress;
+use RuntimeException;
 use Twig\Environment;
 use Twig\Extension\DebugExtension;
 use Twig\Loader\FilesystemLoader;
@@ -16,7 +16,6 @@ use Twig\TwigFilter;
 class TwigView implements View
 {
     protected $viewGlobals = [];
-
     protected $templatePaths = [];
 
     public function __construct () {
@@ -56,7 +55,7 @@ class TwigView implements View
         $settings = [];
 
         if (defined('WP_ENV') && WP_ENV === 'production') {
-            $settings['cache'] = self::cacheDir();
+            $settings['cache'] = $this->cacheDir();
         }
 
         if (defined('WP_DEBUG') && WP_DEBUG === true) {
@@ -67,7 +66,7 @@ class TwigView implements View
 
         $twig->addGlobal('wp', offbeat()->container->make(Wordpress::class));
 
-        if (!empty($this->viewGlobals)) foreach ($this->viewGlobals as $globalNamespace => $globalValue) {
+        foreach ($this->viewGlobals as $globalNamespace => $globalValue) {
             $twig->addGlobal($globalNamespace, $globalValue);
         }
 
@@ -92,19 +91,20 @@ class TwigView implements View
     {
         $cacheDirPath = WP_CONTENT_DIR . '/cache/twig';
 
-        if (!is_dir($cacheDirPath)) {
-            mkdir($cacheDirPath);
+        if (!is_dir($cacheDirPath) && !mkdir($cacheDirPath) && !is_dir($cacheDirPath)) {
+            throw new RuntimeException(sprintf('Directory "%s" was not created', $cacheDirPath));
         }
 
         return $cacheDirPath;
     }
 
-    public function registerGlobal($namespace, $value)
+    public function registerGlobal($namespace, $value): void
     {
         $this->viewGlobals[$namespace] = $value;
     }
 
-    public function addTemplatePath($path) {
+    public function addTemplatePath($path): void
+    {
         array_unshift($this->templatePaths, $path);
     }
 

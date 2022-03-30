@@ -13,8 +13,8 @@ class WordpressExtension extends Twig_Extension
         ];
     }
 
-    public function __($string, $textdomain)
+    public function __(string $text, string $domain = 'default'): string
     {
-        return __($string, $textdomain);
+        return __($text, $domain);
     }
 }
