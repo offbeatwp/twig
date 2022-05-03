@@ -40,6 +40,7 @@ class OffbeatWpExtension extends Twig_Extension
     /**
      * @param string $name
      * @param array $args
+     * @return void
      * @throws NonexistentComponentException
      */
     public function getComponent($name, $args = [])
