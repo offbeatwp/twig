@@ -10,8 +10,7 @@ class WordpressExtension extends Twig_Extension
     public function getFunctions()
     {
         return [
-            new Twig_Function('__', [$this, '__']),
-            new Twig_Function('_s', [$this, '_s'])
+            new Twig_Function('__', [$this, '__'])
         ];
     }
 
@@ -23,16 +22,5 @@ class WordpressExtension extends Twig_Extension
     public function __($text, $domain = 'default')
     {
         return __($text, $domain);
-    }
-
-    /**
-     * @param string $string
-     * @param string $textdomain
-     * @param string|int|float ...$values
-     * @return string
-     */
-    public function _s(string $string, string $textdomain = 'default', ...$values)
-    {
-        return sprintf(__($string, $textdomain), ...$values);
     }
 }
