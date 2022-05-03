@@ -11,6 +11,7 @@ class WordpressExtension extends Twig_Extension
     {
         return [
             new Twig_Function('__', [$this, '__']),
+            new Twig_Function('_s', [$this, '_s'])
         ];
     }
 
@@ -32,6 +33,6 @@ class WordpressExtension extends Twig_Extension
      */
     public function _s(string $string, string $textdomain = 'default', ...$values)
     {
-        return sprintf(__($string, $textdomain), $values);
+        return sprintf(__($string, $textdomain), ...$values);
     }
 }
