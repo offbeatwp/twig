@@ -1,21 +1,24 @@
 <?php
 namespace OffbeatWP\Twig;
 
-use App\Services\Twig\Filters\Component;
+use Exception;
 use OffbeatWP\Contracts\View;
 use OffbeatWP\Twig\Extensions\OffbeatWpExtension;
 use OffbeatWP\Twig\Extensions\WordpressExtension;
 use OffbeatWP\Views\Wordpress;
+use RuntimeException;
 use Twig\Environment;
 use Twig\Extension\DebugExtension;
 use Twig\Loader\FilesystemLoader;
 use Twig\Markup;
 use Twig\TwigFilter;
+use Twig_Error_Loader;
+use Twig_Error_Syntax;
+use Twig_Template;
 
 class TwigView implements View
 {
     protected $viewGlobals = [];
-
     protected $templatePaths = [];
 
     public function __construct () {
@@ -28,19 +31,27 @@ class TwigView implements View
         }
     }
 
+    /**
+     * @param string $template
+     * @param array $data
+     * @return string|null
+     */
     public function render($template, $data = [])
     {
         $twig = $this->getTwig();
 
         if (!is_string($template)) {
-            return;
+            return null;
         }
 
-        $renderResult = $twig->render($template . '.twig', $data);
-
-        return $renderResult;
+        try {
+            return $twig->render($template . '.twig', $data);
+        } catch (Exception $err) {
+            return "Error in <b>{$err->getFile()}</b> on line <b>{$err->getLine()}:</b> {$err->getMessage()}";
+        }
     }
 
+    /** @return Environment */
     public function getTwig()
     {
         $loader = new FilesystemLoader($this->getTemplatePaths());
@@ -48,7 +59,7 @@ class TwigView implements View
         $settings = [];
 
         if (defined('WP_ENV') && WP_ENV === 'production') {
-            $settings['cache'] = self::cacheDir();
+            $settings['cache'] = $this->cacheDir();
         }
 
         if (defined('WP_DEBUG') && WP_DEBUG === true) {
@@ -59,7 +70,7 @@ class TwigView implements View
 
         $twig->addGlobal('wp', offbeat()->container->make(Wordpress::class));
 
-        if (!empty($this->viewGlobals)) foreach ($this->viewGlobals as $globalNamespace => $globalValue) {
+        foreach ($this->viewGlobals as $globalNamespace => $globalValue) {
             $twig->addGlobal($globalNamespace, $globalValue);
         }
 
@@ -72,7 +83,7 @@ class TwigView implements View
 
         $twig->addExtension(new OffbeatWpExtension());
         $twig->addExtension(new WordpressExtension());
-        
+
         if (defined('WP_DEBUG') && WP_DEBUG === true) {
             $twig->addExtension(new DebugExtension());
         }
@@ -80,31 +91,45 @@ class TwigView implements View
         return $twig;
     }
 
+    /** @return string */
     public function cacheDir()
     {
         $cacheDirPath = defined('WP_OFFBEAT_TWIG_CACHE_DIR') && !empty(WP_OFFBEAT_TWIG_CACHE_DIR) ? WP_OFFBEAT_TWIG_CACHE_DIR : WP_CONTENT_DIR . '/cache/twig';
 
-        if (!is_dir($cacheDirPath)) {
-            mkdir($cacheDirPath);
+        if (!is_dir($cacheDirPath) && !mkdir($cacheDirPath) && !is_dir($cacheDirPath)) {
+            throw new RuntimeException(sprintf('Directory "%s" was not created', $cacheDirPath));
         }
 
         return $cacheDirPath;
     }
 
+    /** @return void */
     public function registerGlobal($namespace, $value)
     {
         $this->viewGlobals[$namespace] = $value;
     }
 
-    public function addTemplatePath($path) {
+    /**
+     * @param string $path
+     * @return void
+     */
+    public function addTemplatePath($path)
+    {
         array_unshift($this->templatePaths, $path);
     }
 
+    /** @return string[] */
     public function getTemplatePaths()
     {
         return $this->templatePaths;
     }
 
+    /**
+     * @param string $templateCode
+     * @return Twig_Template
+     * @throws Twig_Error_Loader
+     * @throws Twig_Error_Syntax
+     */
     public function createTemplate($templateCode)
     {
         return $this->getTwig()->createTemplate($templateCode);
