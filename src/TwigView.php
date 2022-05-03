@@ -12,6 +12,9 @@ use Twig\Extension\DebugExtension;
 use Twig\Loader\FilesystemLoader;
 use Twig\Markup;
 use Twig\TwigFilter;
+use Twig_Error_Loader;
+use Twig_Error_Syntax;
+use Twig_Template;
 
 class TwigView implements View
 {
@@ -48,7 +51,8 @@ class TwigView implements View
         }
     }
 
-    public function getTwig(): Environment
+    /** @return Environment */
+    public function getTwig()
     {
         $loader = new FilesystemLoader($this->getTemplatePaths());
 
@@ -87,7 +91,8 @@ class TwigView implements View
         return $twig;
     }
 
-    public function cacheDir(): string
+    /** @return string */
+    public function cacheDir()
     {
         $cacheDirPath = WP_CONTENT_DIR . '/cache/twig';
 
@@ -98,21 +103,33 @@ class TwigView implements View
         return $cacheDirPath;
     }
 
-    public function registerGlobal($namespace, $value): void
+    /** @return void */
+    public function registerGlobal($namespace, $value)
     {
         $this->viewGlobals[$namespace] = $value;
     }
 
-    public function addTemplatePath($path): void
+    /**
+     * @param string $path
+     * @return void
+     */
+    public function addTemplatePath($path)
     {
         array_unshift($this->templatePaths, $path);
     }
 
-    public function getTemplatePaths(): array
+    /** @return string[] */
+    public function getTemplatePaths()
     {
         return $this->templatePaths;
     }
 
+    /**
+     * @param string $templateCode
+     * @return Twig_Template
+     * @throws Twig_Error_Loader
+     * @throws Twig_Error_Syntax
+     */
     public function createTemplate($templateCode)
     {
         return $this->getTwig()->createTemplate($templateCode);

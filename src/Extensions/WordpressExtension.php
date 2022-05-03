@@ -6,6 +6,7 @@ use Twig_Function;
 
 class WordpressExtension extends Twig_Extension
 {
+    /** @return Twig_Function[] */
     public function getFunctions()
     {
         return [
@@ -13,7 +14,12 @@ class WordpressExtension extends Twig_Extension
         ];
     }
 
-    public function __(string $text, string $domain = 'default'): string
+    /**
+     * @param string $text
+     * @param string $domain
+     * @return string
+     */
+    public function __($text, $domain = 'default')
     {
         return __($text, $domain);
     }
@@ -24,7 +30,7 @@ class WordpressExtension extends Twig_Extension
      * @param string|int|float ...$values
      * @return string
      */
-    public function _s(string $string, string $textdomain, ...$values)
+    public function _s(string $string, string $textdomain = 'default', ...$values)
     {
         return sprintf(__($string, $textdomain), $values);
     }
