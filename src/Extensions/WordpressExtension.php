@@ -17,4 +17,15 @@ class WordpressExtension extends Twig_Extension
     {
         return __($text, $domain);
     }
+
+    /**
+     * @param string $string
+     * @param string $textdomain
+     * @param string|int|float ...$values
+     * @return string
+     */
+    public function _s(string $string, string $textdomain, ...$values)
+    {
+        return sprintf(__($string, $textdomain), $values);
+    }
 }
