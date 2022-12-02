@@ -94,13 +94,14 @@ class TwigView implements View
     /** @return string */
     public function cacheDir()
     {
-        $cacheDirPath = defined('WP_OFFBEAT_TWIG_CACHE_DIR') && !empty(WP_OFFBEAT_TWIG_CACHE_DIR) ? WP_OFFBEAT_TWIG_CACHE_DIR : WP_CONTENT_DIR . '/cache/twig';
+        $cacheDirPath = WP_CONTENT_DIR . '/cache';
+        $twigCacheDirPath = defined('WP_OFFBEAT_TWIG_CACHE_DIR') && !empty(WP_OFFBEAT_TWIG_CACHE_DIR) ? WP_OFFBEAT_TWIG_CACHE_DIR : $cacheDirPath . '/twig';
 
-        if (!is_dir($cacheDirPath) && !mkdir($cacheDirPath) && !is_dir($cacheDirPath)) {
-            throw new RuntimeException(sprintf('Directory "%s" was not created', $cacheDirPath));
+        if ((!is_dir($cacheDirPath) && !mkdir($cacheDirPath)) || (!is_dir($twigCacheDirPath) && !mkdir($twigCacheDirPath))) {
+            throw new RuntimeException(sprintf('Directory "%s" was not created', $twigCacheDirPath));
         }
 
-        return $cacheDirPath;
+        return $twigCacheDirPath;
     }
 
     /** @return void */
