@@ -96,7 +96,7 @@ class TwigView implements View
     {
         $cacheDirPath = defined('WP_OFFBEAT_TWIG_CACHE_DIR') && !empty(WP_OFFBEAT_TWIG_CACHE_DIR) ? WP_OFFBEAT_TWIG_CACHE_DIR : WP_CONTENT_DIR . '/cache/twig';
 
-        if (!is_dir($cacheDirPath) && !mkdir($cacheDirPath) && !is_dir($cacheDirPath)) {
+        if (!is_dir($cacheDirPath) && !mkdir($cacheDirPath, 0777, true)) {
             throw new RuntimeException(sprintf('Directory "%s" was not created', $cacheDirPath));
         }
 
