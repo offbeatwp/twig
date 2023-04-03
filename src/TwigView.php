@@ -11,10 +11,8 @@ use Twig\Environment;
 use Twig\Extension\DebugExtension;
 use Twig\Loader\FilesystemLoader;
 use Twig\Markup;
+use Twig\TemplateWrapper;
 use Twig\TwigFilter;
-use Twig_Error_Loader;
-use Twig_Error_Syntax;
-use Twig_Template;
 
 class TwigView implements View
 {
@@ -126,11 +124,9 @@ class TwigView implements View
 
     /**
      * @param string $templateCode
-     * @return Twig_Template
-     * @throws Twig_Error_Loader
-     * @throws Twig_Error_Syntax
+     * @return TemplateWrapper
      */
-    public function createTemplate($templateCode)
+    public function createTemplate($templateCode): TemplateWrapper
     {
         return $this->getTwig()->createTemplate($templateCode);
     }
