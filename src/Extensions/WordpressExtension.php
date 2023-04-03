@@ -1,16 +1,16 @@
 <?php
 namespace OffbeatWP\Twig\Extensions;
 
-use Twig_Extension;
-use Twig_Function;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 
-class WordpressExtension extends Twig_Extension
+class WordpressExtension extends AbstractExtension
 {
-    /** @return Twig_Function[] */
+    /** @return TwigFunction[] */
     public function getFunctions()
     {
         return [
-            new Twig_Function('__', [$this, '__'])
+            new TwigFunction('__', [$this, '__'])
         ];
     }
 

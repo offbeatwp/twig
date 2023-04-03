@@ -2,20 +2,20 @@
 namespace OffbeatWP\Twig\Extensions;
 
 use OffbeatWP\Exceptions\NonexistentComponentException;
-use Twig_Extension;
-use Twig_Function;
 use OffbeatWP\Contracts\SiteSettings;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 
-class OffbeatWpExtension extends Twig_Extension
+class OffbeatWpExtension extends AbstractExtension
 {
-    /** @return Twig_Function[] */
+    /** @return TwigFunction[] */
     public function getFunctions()
     {
         return [
-            new Twig_Function('config', [$this, 'getConfig']),
-            new Twig_Function('assetUrl', [$this, 'getAssetUrl']),
-            new Twig_Function('component', [$this, 'getComponent']),
-            new Twig_Function('setting', [$this, 'getSetting']),
+            new TwigFunction('config', [$this, 'getConfig']),
+            new TwigFunction('assetUrl', [$this, 'getAssetUrl']),
+            new TwigFunction('component', [$this, 'getComponent']),
+            new TwigFunction('setting', [$this, 'getSetting']),
         ];
     }
 
