@@ -45,12 +45,16 @@ class OffbeatWpExtension extends AbstractExtension
      */
     public function getComponent($name, $args = [])
     {
-        $output = container('components')->render($name, $args);
-
-        if (isset($args['echo']) && $args['echo'] === false) {
-            return $output;
+        if (is_array($args)) {
+            $args = (object) $args;
         }
 
+        $output = container('components')->render($name, $args);
+
+        if (isset($args->echo) && $args->echo === false) {
+            return $output;
+        }
+        
         echo $output;
     }
 
