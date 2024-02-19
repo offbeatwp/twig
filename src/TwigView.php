@@ -5,6 +5,7 @@ use Exception;
 use OffbeatWP\Contracts\View;
 use OffbeatWP\Twig\Extensions\OffbeatWpExtension;
 use OffbeatWP\Twig\Extensions\WordpressExtension;
+use OffbeatWP\Twig\Extensions\RenderBlockExtension;
 use OffbeatWP\Views\Wordpress;
 use RuntimeException;
 use Twig\Environment;
@@ -81,6 +82,7 @@ class TwigView implements View
 
         $twig->addExtension(new OffbeatWpExtension());
         $twig->addExtension(new WordpressExtension());
+        $twig->addExtension(new RenderBlockExtension());
 
         if (defined('WP_DEBUG') && WP_DEBUG === true) {
             $twig->addExtension(new DebugExtension());
