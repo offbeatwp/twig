@@ -15,6 +15,6 @@
         }
     },
     "require": {
-        "twig/twig": "^v2.6.1"
+        "twig/twig": "^v3.11.2"
     }
 }
