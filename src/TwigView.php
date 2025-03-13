@@ -20,7 +20,7 @@ class TwigView implements View
     protected $viewGlobals = [];
     protected $templatePaths = [];
 
-    public function __construct () {
+    public function __construct() {
         if (is_dir(get_template_directory() . '/resources/views/')) {
             $this->addTemplatePath(get_template_directory() . '/resources/views/');
         }
@@ -57,7 +57,7 @@ class TwigView implements View
 
         $settings = [];
 
-        if (defined('WP_ENV') && WP_ENV === 'production') {
+        if (defined('WP_ENV') && WP_ENV === 'production' && filter_input(INPUT_GET, 'disableTwigCache') === null) {
             $settings['cache'] = $this->cacheDir();
         }
 
