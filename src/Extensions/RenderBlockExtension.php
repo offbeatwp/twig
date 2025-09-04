@@ -7,33 +7,38 @@ use Twig\TwigFilter;
 use Twig\TwigFunction;
 use WP_Embed;
 
-class RenderBlockExtension extends AbstractExtension
+final class RenderBlockExtension extends AbstractExtension
 {
-    public function getFunctions()
+    /** @inheritdoc */
+    public function getFunctions(): array
     {
         return [
             new TwigFunction('render_block', [$this, 'renderBlockFunction'], ['pre_escape' => 'html', 'is_safe' => ['html']]),
         ];
     }
 
-    public function getFilters()
+    /** @inheritdoc */
+    public function getFilters(): array
     {
         return [
             new TwigFilter('render_block', [$this, 'renderBlockFilter'], ['pre_escape' => 'html', 'is_safe' => ['html']]),
         ];
     }
 
-    public function renderBlockFunction($blockName, $attributes = [], $content = null)
+    /** @param mixed[] $attributes */
+    public function renderBlockFunction(string $blockName, array $attributes = [], string $content = ''): string
     {
         return $this->renderBlock($blockName, $attributes);
     }
 
-    public function renderBlockFilter($content, $blockName, $attributes = [])
+    /** @param mixed[] $attributes */
+    public function renderBlockFilter(string $content, string $blockName, array $attributes = []): string
     {
         return $this->renderBlock($blockName, $attributes, $content);
     }
 
-    protected function renderBlock($blockName, $attributes = [], $content = null)
+    /** @param mixed[] $attributes */
+    protected function renderBlock(string $blockName, array $attributes = [], string $content = ''): string
     {
         $blockArgs = [
             'blockName' => $blockName,
@@ -41,15 +46,11 @@ class RenderBlockExtension extends AbstractExtension
             'innerBlocks' => []
         ];
 
-        if (!empty($content)) {
-            $blockArgs['innerHTML'] = (string) $content;
-            $blockArgs['innerContent'] = [(string) $content]; 
+        if ($content) {
+            $blockArgs['innerHTML'] = $content;
+            $blockArgs['innerContent'] = [$content];
         }
 
-        $content = render_block( $blockArgs );
-
-        $content = (new WP_Embed)->autoembed($content);
-
-        return $content;
+        return (new WP_Embed())->autoembed(render_block($blockArgs));
     }
 }
