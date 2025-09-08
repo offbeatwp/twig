@@ -13,14 +13,14 @@ use Twig\Extension\DebugExtension;
 use Twig\Loader\FilesystemLoader;
 use Twig\TemplateWrapper;
 
-final class TwigView implements View
+class TwigView implements View
 {
     /** @var array<string, mixed> */
     protected array $viewGlobals = [];
     /** @var list<string> */
     protected array $templatePaths = [];
 
-    public function __construct()
+    final public function __construct()
     {
         if (is_dir(get_template_directory() . '/resources/views/')) {
             $this->addTemplatePath(get_template_directory() . '/resources/views/');
@@ -32,7 +32,7 @@ final class TwigView implements View
     }
 
     /** @param mixed[] $data */
-    public function render(string $template, array $data = []): string
+    final public function render(string $template, array $data = []): string
     {
         $twig = $this->getTwig();
 
@@ -76,7 +76,7 @@ final class TwigView implements View
         return $twig;
     }
 
-    public function cacheDir(): string
+    final public function cacheDir(): string
     {
         $cacheDirPath = defined('WP_OFFBEAT_TWIG_CACHE_DIR') && constant('WP_OFFBEAT_TWIG_CACHE_DIR') ? constant('WP_OFFBEAT_TWIG_CACHE_DIR') : constant('WP_CONTENT_DIR') . '/cache/twig';
 
@@ -91,23 +91,23 @@ final class TwigView implements View
         return $cacheDirPath;
     }
 
-    public function registerGlobal(string $namespace, mixed $value): void
+    final public function registerGlobal(string $namespace, mixed $value): void
     {
         $this->viewGlobals[$namespace] = $value;
     }
 
-    public function addTemplatePath(string $path): void
+    final public function addTemplatePath(string $path): void
     {
         array_unshift($this->templatePaths, $path);
     }
 
     /** @return string[] */
-    public function getTemplatePaths(): array
+    final public function getTemplatePaths(): array
     {
         return $this->templatePaths;
     }
 
-    public function createTemplate(string $templateCode): TemplateWrapper
+    final public function createTemplate(string $templateCode): TemplateWrapper
     {
         return $this->getTwig()->createTemplate($templateCode);
     }
