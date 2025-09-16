@@ -1,4 +1,5 @@
 <?php
+
 namespace OffbeatWP\Twig\Extensions;
 
 use Twig\Extension\AbstractExtension;
@@ -22,6 +23,6 @@ final class OffbeatWpExtension extends AbstractExtension
 
     public function getAssetUrl(string $file): string
     {
-        return assetUrl($file);
+        return (string)assetUrl($file);
     }
 }

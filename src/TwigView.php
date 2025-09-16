@@ -6,7 +6,7 @@ use OffbeatWP\Contracts\View;
 use OffbeatWP\Twig\Extensions\OffbeatWpExtension;
 use OffbeatWP\Twig\Extensions\WordpressExtension;
 use OffbeatWP\Twig\Extensions\RenderBlockExtension;
-use OffbeatWP\Views\Wordpress;
+use OffbeatWP\Twig\Globals\TwigWordPress;
 use RuntimeException;
 use Twig\Environment;
 use Twig\Extension\DebugExtension;
@@ -59,7 +59,7 @@ class TwigView implements View
 
         $twig = new Environment($loader, $settings);
 
-        $twig->addGlobal('wp', offbeat()->container->make(Wordpress::class));
+        $twig->addGlobal('wp', new TwigWordPress());
 
         foreach ($this->viewGlobals as $globalNamespace => $globalValue) {
             $twig->addGlobal($globalNamespace, $globalValue);
