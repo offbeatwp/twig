@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8adcf5c529aaa7dacf6b252862224362",
+    "content-hash": "c3cadbc60e3e828369d790564354ca40",
     "packages": [
         {
             "name": "offbeatwp/framework",
-            "version": "dev-epic/offbeat-4",
+            "version": "4.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/offbeatwp/framework.git",
-                "reference": "90d6e13a9ca6956fdcf3a3e1780696b0e7c56cf1"
+                "reference": "ef3b061e95efa7226bb17f00178d3ec4baff3fa4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/offbeatwp/framework/zipball/90d6e13a9ca6956fdcf3a3e1780696b0e7c56cf1",
-                "reference": "90d6e13a9ca6956fdcf3a3e1780696b0e7c56cf1",
+                "url": "https://api.github.com/repos/offbeatwp/framework/zipball/ef3b061e95efa7226bb17f00178d3ec4baff3fa4",
+                "reference": "ef3b061e95efa7226bb17f00178d3ec4baff3fa4",
                 "shasum": ""
             },
             "require": {
@@ -48,9 +48,9 @@
             "description": "The OffbeatWP framework",
             "support": {
                 "issues": "https://github.com/offbeatwp/framework/issues",
-                "source": "https://github.com/offbeatwp/framework/tree/epic/offbeat-4"
+                "source": "https://github.com/offbeatwp/framework/tree/4.0.0"
             },
-            "time": "2025-09-16T12:58:25+00:00"
+            "time": "2026-01-13T16:07:31+00:00"
         },
         {
             "name": "symfony/deprecation-contracts",
@@ -289,16 +289,16 @@
         },
         {
             "name": "twig/twig",
-            "version": "v3.21.1",
+            "version": "v3.22.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "285123877d4dd97dd7c11842ac5fb7e86e60d81d"
+                "reference": "946ddeafa3c9f4ce279d1f34051af041db0e16f2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/285123877d4dd97dd7c11842ac5fb7e86e60d81d",
-                "reference": "285123877d4dd97dd7c11842ac5fb7e86e60d81d",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/946ddeafa3c9f4ce279d1f34051af041db0e16f2",
+                "reference": "946ddeafa3c9f4ce279d1f34051af041db0e16f2",
                 "shasum": ""
             },
             "require": {
@@ -352,7 +352,7 @@
             ],
             "support": {
                 "issues": "https://github.com/twigphp/Twig/issues",
-                "source": "https://github.com/twigphp/Twig/tree/v3.21.1"
+                "source": "https://github.com/twigphp/Twig/tree/v3.22.2"
             },
             "funding": [
                 {
@@ -364,7 +364,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-05-03T07:21:55+00:00"
+            "time": "2025-12-14T11:28:47+00:00"
         }
     ],
     "packages-dev": [
@@ -421,16 +421,11 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "2.1.22",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "41600c8379eb5aee63e9413fe9e97273e25d57e4"
-            },
+            "version": "2.1.33",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/41600c8379eb5aee63e9413fe9e97273e25d57e4",
-                "reference": "41600c8379eb5aee63e9413fe9e97273e25d57e4",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/9e800e6bee7d5bd02784d4c6069b48032d16224f",
+                "reference": "9e800e6bee7d5bd02784d4c6069b48032d16224f",
                 "shasum": ""
             },
             "require": {
@@ -475,20 +470,20 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-08-04T19:17:37+00:00"
+            "time": "2025-12-05T10:24:31+00:00"
         },
         {
             "name": "szepeviktor/phpstan-wordpress",
-            "version": "v2.0.2",
+            "version": "v2.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/szepeviktor/phpstan-wordpress.git",
-                "reference": "963887b04c21fe7ac78e61c1351f8b00fff9f8f8"
+                "reference": "aa722f037b2d034828cd6c55ebe9e5c74961927e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/szepeviktor/phpstan-wordpress/zipball/963887b04c21fe7ac78e61c1351f8b00fff9f8f8",
-                "reference": "963887b04c21fe7ac78e61c1351f8b00fff9f8f8",
+                "url": "https://api.github.com/repos/szepeviktor/phpstan-wordpress/zipball/aa722f037b2d034828cd6c55ebe9e5c74961927e",
+                "reference": "aa722f037b2d034828cd6c55ebe9e5c74961927e",
                 "shasum": ""
             },
             "require": {
@@ -498,6 +493,7 @@
             },
             "require-dev": {
                 "composer/composer": "^2.1.14",
+                "composer/semver": "^3.4",
                 "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
                 "php-parallel-lint/php-parallel-lint": "^1.1",
                 "phpstan/phpstan-strict-rules": "^2.0",
@@ -535,20 +531,18 @@
             ],
             "support": {
                 "issues": "https://github.com/szepeviktor/phpstan-wordpress/issues",
-                "source": "https://github.com/szepeviktor/phpstan-wordpress/tree/v2.0.2"
+                "source": "https://github.com/szepeviktor/phpstan-wordpress/tree/v2.0.3"
             },
-            "time": "2025-02-12T18:43:37+00:00"
+            "time": "2025-09-14T02:58:22+00:00"
         }
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "offbeatwp/framework": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=8.0"
+        "php": ">=8.3"
     },
     "platform-dev": [],
     "plugin-api-version": "2.3.0"
