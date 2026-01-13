@@ -3,6 +3,9 @@
     "description": "Use Twig as template engine for OffbeatWP",
     "license": "MIT",
     "type": "offbeatwp-service",
+    "scripts": {
+        "phpstan": "vendor/bin/phpstan analyse --memory-limit=1G"
+    },
     "authors": [
         {
             "name": "Chris Schrijver",
@@ -15,6 +18,12 @@
         }
     },
     "require": {
-        "twig/twig": "^v2.16.1|^v3.14.1"
+        "php": ">=8.0",
+        "twig/twig": "^v3.21.1",
+        "offbeatwp/framework": "dev-epic/offbeat-4"
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^2.1.22",
+        "szepeviktor/phpstan-wordpress": "^v2.0.2"
     }
 }
