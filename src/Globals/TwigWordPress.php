@@ -3,7 +3,7 @@
 namespace OffbeatWP\Twig\Globals;
 
 use OffbeatWP\Content\User\UserModel;
-use OffbeatWP\Support\Objects\OffbeatImageSrc;
+use OffbeatWP\Twig\Objects\OffbeatImageSrc;
 use RuntimeException;
 use WP_Site;
 
@@ -250,7 +250,7 @@ final class TwigWordPress
             $imageSrc = $this->getAttachmentImageSrc($attachmentId, $size);
 
             if ($imageSrc) {
-                $srcSet[] = $imageSrc->getUrl() . ' ' . $imageSrc->getWidth() . 'w';
+                $srcSet[] = $imageSrc->url . ' ' . $imageSrc->width . 'w';
             }
         }
 

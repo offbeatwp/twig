@@ -47,7 +47,7 @@ class TwigView implements View
     {
         $loader = new FilesystemLoader($this->getTemplatePaths());
 
-        $settings = [];
+        $settings = ['autoescape' => 'html'];
 
         if ($this->isProduction() && filter_input(INPUT_GET, 'disableTwigCache') === null) {
             $settings['cache'] = $this->cacheDir();
